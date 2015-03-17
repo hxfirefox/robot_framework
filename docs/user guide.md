@@ -246,7 +246,7 @@ Setting表具有下列测试例设置，主要是测试例的缺省值。
 | Example   | wrapper | shell=True | # This will not come as a named argument to Start process | 
 
 | Keyword | Action | Argument | Argument | Argument |    
-| --------- | :-------- | :------- | :------- |
+| --------- | :-------- | :------- | :------- | :------- |
 | Wrapper | [Arguments] | @{args} |  |  |
 |  | Start process | MyProcess | @{args} | # named arguments are not recognized from inside @{args} |
 
@@ -268,13 +268,13 @@ Setting表具有下列测试例设置，主要是测试例的缺省值。
 | Library   | Telnet | prompt=$ | default_log_level=DEBUG | 
 
 | Test Case | Action | Argument | Argument | Argument |    
-| --------- | :-------- | :------- | :------- |
+| --------- | :-------- | :------- | :------- | :------- |
 | Example | Open connection | 10.0.0.42 | port=${PORT} | alias=example |
 |  | List files | options=-lh |  |  |
 |  | List files | path=/tmp | options=-lh |  |
 
 | Keyword | Action | Argument | Argument | Argument |    
-| --------- | :-------- | :------- | :------- |
+| --------- | :-------- | :------- | :------- | :------- |
 | List files | [Arguments] | ${path}=. | ${options}= |  |
 |  | Execute command | ls ${options} ${path} |  |  |
 
