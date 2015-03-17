@@ -399,3 +399,9 @@ Setup与teardown通常是单独关键字，如需要setup和teardown应用到多
 |  | [Setup] | ${SETUP} |  |
 |  | Do something |  |  |
 |  | [Teardown] | ${TEARDOWN} |  |
+
+### 2.2.7   测试模板
+ 
+测试模板已经构建了测试用例主体（关键字与可能的参数），测试用例只需包含数即可
+
+与其他设置不同，模板无法使用变量。
