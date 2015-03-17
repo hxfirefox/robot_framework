@@ -301,3 +301,101 @@ Setting表具有下列测试例设置，主要是测试例的缺省值。
 |  | No Operation |  |  |
 | Variables | [Documentation] | Executed at ${HOST} by ${USER} |  |
 |  | No Operation |  |  |
+
+### 2.2.5   标记测试例
+ 
+标签可以是任意文本，具有以下用途：
+
+ - 如2.2.4描述，标签提供了元数据，可以在测试报告、日志及数据中显示
+ - 测试例统计，基于标签搜集
+ - 利用标签可以选择性地执行测试例
+ - 利用标签可以指定关键性用例
+ 
+如何设置标签集使用方法如下所示：
+
+Setting表中*Force Tags* 
+
+  所有使用该设置的用例都将获得此指定标签，如在*test suite initialization file*中使用，则所有的子测试集都将获得此标签
+
+Setting表中*Default Tags*
+
+  测试例如无[Tags]设置则使用此标签，从Robot 2.5版本起测试集初始化文件不再支持缺省标签
+
+测试用例表中*[Tags]*
+
+  测试用例最常用的标签
+
+命令*--settag* 
+
+  测试用例获得该命令设置的标签
+
+关键字*Set Tags*，*Remove Tags*，*Fail*与*Pass Execution*
+
+  上述关键字可在测试执行过程中动态地操作标签 
+
+尽管是自由文本，但是标签会执行一致处理，包括大小写转换，多余空格的删除。如果用例多次获取了同一标签，则只有第一次获得的标签会起作用。标签也可以由变量产生。
+
+| Setting | Value | Value | Value | 
+| --------- | :-------- | :------- | :------- |
+| Force Tags | req-42 |  |  |
+| Default Tags | owner-john | smoke |  |
+
+| Variable | Value | Value | Value | 
+| --------- | :-------- | :------- | :------- |
+| ${HOST} | 10.0.1.42 |  |  |
+
+| Test Case | Action | Argument | Argument | 
+| --------- | :-------- | :------- | :------- |
+| No own tags | [Documentation] | This test has tags | owner-john, smoke, req-42 |
+|  | No Operation |  |  |
+|  |  |  |  |
+| With own tags | [Documentation] | This test has tags | not_ready, owner-mrx, req-42 |
+|  | [Tags] | owner-mrx | not_ready |
+|  | No Operation |  |  |
+|  |  |  |  |
+| Own tags with variables | [Documentation] | This test has tags | host-10.0.1.42, req-42 |
+|  | [Tags] | host-${HOST} | not_ready |
+|  | No Operation |  |  |
+|  |  |  |  |
+| Empty own tags | [Documentation] | This test has tags | req-42 |
+|  | [Tags] |  |  |
+|  | No Operation |  |  |
+|  |  |  |  |
+| Set Tags and Remove Tags Keywords | [Documentation] | This test has tags | mytag, owner-john |
+|  | Set Tags | mytag |  |
+|  | Remove Tags | smoke | req-* |
+
+### 2.2.6   Test setup and teardown
+ 
+与其他自动化测试框架类似，Robot也具有setup与teardown。
+ 
+Setup与teardown通常是单独关键字，如需要setup和teardown应用到多个分立的任务，可能需要创建更高级的关键字，或者使用关键字Run Keywords来执行多个关键字。
+ 
+指定用例setup与teardown的最简单方法是在Setting表中使用*Test Setup*与*Test Teardown*，同时每个测试例也可以有自己的setup和teardown，定义在测试用例表中的*[Setup]*与*[Teardown]*中，并覆盖Setting表中的相应设置，当其中没有关键字时则表示没有任何setup与teardown。
+ 
+| Setting | Value | Value | Value | 
+| --------- | :-------- | :------- | :------- |
+| Test Setup | Open Application | App A |  |
+| Test Teardown | Close Application |  |  |
+
+| Test Case | Action | Argument | Argument | 
+| --------- | :-------- | :------- | :------- |
+| Default values | [Documentation] | Setup and teardown | from setting table |
+|  | Do something |  |  |
+|  |  |  |  |
+| Overridden setup | [Documentation] | Own setup, teardown | from setting table |
+|  | [Setup] | Open Application | App B |
+|  | Do something |  |  |
+|  |  |  |  |
+| No teardown | [Documentation] | default setup, no | teardown at all |
+|  | Do something |  |  |
+|  | [Teardown] |  |  |
+|  |  |  |  |
+| No teardown 2 | [Documentation] | Using special NONE, | work with 2.5.6 |
+|  | Do something |  |  |
+|  | [Teardown] | NONE |  |
+|  |  |  |  |
+| Using variables | [Documentation] | Setup and teardown | given as variables |
+|  | [Setup] | ${SETUP} |  |
+|  | Do something |  |  |
+|  | [Teardown] | ${TEARDOWN} |  |
