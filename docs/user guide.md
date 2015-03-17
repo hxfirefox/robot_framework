@@ -282,8 +282,22 @@ Setting表具有下列测试例设置，主要是测试例的缺省值。
 
 用例名称直接来源与用例表，用例在测试集中具有唯一的名称。也可以用automatic variable的${Test_Name}来指明其测试名称。
 
-[Documentation]设置允许使用自由文档说明测试用例，文本会在命令行、测试日志及报告中显示。
+*[Documentation]*设置允许使用自由文档说明测试用例，文本会在命令行、测试日志及报告中显示。
 
 如果文档较长，可以划分为多个单元格，并且可以使用简单的HTML格式与变量使得文本更加生动。
 
 用例名表意清晰非常重要，可以省去不必要的文档。对于元数据，如环境和用户信息应该使用标签(tags)来进行定义更加妥当。
+
+| Test Case | Action | Argument | Argument | 
+| --------- | :-------- | :------- | :------- |
+| Simple | [Documentation] | Simple documentation |  |
+|  | No Operation |  |  |
+| Splitting | [Documentation] | This documentation is a bit longer and | it has been split into several columns. |
+|  | No Operation |  |  |
+| Many lines | [Documentation] | Here we have |  |
+|  | ... | an automatic newline |  |  |
+|  | No Operation |  |  |
+| Formatting | [Documentation] | *This is bold*,_this italic_ and | here is a link: http://robotframework.org |
+|  | No Operation |  |  |
+| Variables | [Documentation] | Executed at ${HOST} by ${USER} |  |
+|  | No Operation |  |  |
